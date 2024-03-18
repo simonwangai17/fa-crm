@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/assets/css/registration.css">
+    <style>
+        /* Custom CSS for the registration form */
+        .step-container {
+            display: none;
+        }
+
+        .step-container.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="main">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="registration-form">
+                        <h2>Register</h2>
+                        <!-- Step containers for each section -->
+                        <div class="step-container active" id="step-personal-details">
+                            <label class="lab">
+                                <i class="fas fa-user"></i>Personal Details</label>
+                            <!-- Personal Details form fields -->
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="First Name" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Last Name" required>
+                            </div>
+                            <button class="btn btn-primary btn-next" data-next="address-details">Next</button>
+                        </div>
+                        <div class="step-container" id="step-address-details">
+                            <label class="lab">
+                                <i class="fas fa-map-marker-alt"></i>Address Details</label>
+                            <!-- Address Details form fields -->
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Address" required>
+                            </div>
+                            <button class="btn btn-primary btn-previous" data-previous="personal-details">Previous</button>
+                            <button class="btn btn-primary btn-next" data-next="simcard-details">Next</button>
+                        </div>
+                        <div class="step-container" id="step-simcard-details">
+                            <label class="lab">
+                                <i class="fas fa-sim-card"></i>SIM Card Details</label>
+                            <!-- SIM Card Details form fields -->
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="SIM Card Number" required>
+                            </div>
+                            <button class="btn btn-primary btn-previous" data-previous="address-details">Previous</button>
+                            <button class="btn btn-primary btn-next" data-next="upload-details">Next</button>
+                        </div>
+                        <div class="step-container" id="step-upload-details">
+                            <label class="lab">
+                                <i class="fa-solid fa-file-upload"></i>Upload Details</label>
+                            <!-- Upload Details form fields -->
+                            <div class="mb-3">
+                                <label class="lab">Front Side ID:</label>
+                                <input type="file" id="file" name="file">
+                            </div>
+                            <div class="mb-3">
+                                <label class="lab">Back Side ID:</label>
+                                <input type="file" id="file" name="file">
+                            </div>
+                            <button class="btn btn-primary btn-previous" data-previous="simcard-details">Previous</button>
+                            <button class="btn btn-primary btn-next" data-next="payment-details">Next</button>
+                        </div>
+                        <div class="step-container" id="step-payment-details">
+                            <label class="lab">
+                                <i class="fas fa-credit-card"></i>Payment Details</label>
+                            <!-- Payment Details form fields -->
+                            <div class="mb-3">
+                                <input type="text" class="form-control" placeholder="Payment Method" required>
+                            </div>
+                            <button class="btn btn-primary btn-previous" data-previous="upload-details">Previous</button>
+                            <button class="btn btn-primary btn-submit">Register</button>
+                        </div>
+                        <!-- Route plan with icons indicating progress -->
+                        <div class="route-plan">
+                            <i class="fas fa-user active" data-step="personal-details"></i>
+                            <i class="fas fa-map-marker-alt" data-step="address-details"></i>
+                            <i class="fas fa-sim-card" data-step="simcard-details"></i>
+                            <i class="fa-solid fa-file-upload" data-step="upload-details"></i>
+                            <i class="fas fa-credit-card" data-step="payment-details"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/dashboard.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Step navigation
+            const btnNext = document.querySelectorAll('.btn-next');
+            const btnPrevious = document.querySelectorAll('.btn-previous');
+
+            btnNext.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const currentStep = this.parentElement;
+                    const nextStepId = this.getAttribute('data-next');
+                    currentStep.classList.remove('active');
+                    document.getElementById(nextStepId).classList.add('active');
+                });
+            });
+
+            btnPrevious.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const currentStep = this.parentElement;
+                    const previousStepId = this.getAttribute('data-previous');
+                    currentStep.classList.remove('active');
+                    document.getElementById(previousStepId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
